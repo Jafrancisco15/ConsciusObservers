@@ -2,11 +2,12 @@
 
 Interactive research sandbox for turning claims from Donald Hoffman's **Interface Theory of Perception (ITP)** and **Conscious Agent Theory (CAT)** into explicit computational models.
 
-The project separates three experimental questions:
+The project now separates four experimental questions:
 
 1. **Fitness vs. truth:** does selection favor task-specific interfaces, world-structure-preserving representations, or hybrids?
 2. **Observer-relative interfaces:** can different perceptual channels over the same modeled world remain similarly adaptive?
 3. **Conscious realism / combination:** what dynamics appear when agents become part of one another's modeled world through directed or undirected joins?
+4. **Exact Markov test:** can the published 16-state two-agent dynamics be reproduced exactly, and are its asymptotic signatures distinctive relative to a structurally matched non-semantic Markov null?
 
 ## 1. Fitness vs Truth
 
@@ -24,26 +25,45 @@ Implements the Hoffman–Prakash conscious-agent skeleton:
 
 The network laboratory removes the single shared external-world picture and lets other modeled agents supply the signals driving an agent's perceptual channel. It supports 2–6 agents, ring/line/complete topologies, directed or undirected joins, channel noise, coupling strength, decision sharpness, and a compatibility mode approximating the join condition `A_i ≈ P_j`.
 
-It measures:
+It measures synchronization, pairwise mutual information, total correlation, collective predictive information, empirical recurrence, and visited versus possible collective states. The displayed normalized dependence score is **not IIT Φ** and is not presented as a consciousness measure.
 
-- synchronization of experience states,
-- mean pairwise mutual information,
-- **total correlation** of the collective state as a non-factorizability measure,
-- one-step collective predictive information `I(S_t ; S_{t+1})`,
-- empirical recurrence and shortest observed recurrence distance,
-- visited versus possible joint experience states.
+## 4. Exact Markov Dynamics
 
-The displayed normalized dependence score is **not IIT Φ** and is not presented as a consciousness measure. It quantifies statistical dependence only.
+This tab reconstructs the finite-state dynamics in Hoffman & Prakash (2014), section **Dynamics of two conscious agents**. For binary `X₁, G₁, X₂, G₂`, the state space is
 
-### Relation to Hoffman & Prakash (2014)
+`E = X₁ × G₁ × X₂ × G₂`, so `|E| = 2⁴ = 16`.
 
-Their formalism allows conscious agents to be joined in directed and undirected graphs and gives constructive combination theorems. The present simulation explores consequences of coupled finite-state stochastic agents. A conventional Markov network can also synchronize, recur, and develop mutual information, so these outcomes alone do **not** discriminate conscious realism from ordinary stochastic dynamics.
+With identity kernels and the paper's compatibility wiring, the deterministic update is
+
+`x₁' ← g₂, g₁' ← x₁, x₂' ← g₁, g₂' ← x₂`.
+
+The regression suite verifies the exact cycles reported in the paper:
+
+- Example 1: periods `1, 1, 2, 4, 4, 4`;
+- Example 2, after changing `D₁` to the bit-flip matrix: two period-8 cycles.
+
+The lab constructs the full 16×16 transition matrix. An optional independent bit-noise parameter extends the published deterministic examples into stochastic robustness tests. It reports stationary state entropy, entropy rate, predictive information, recurrent classes, and the exact noiseless permutation eigenmodes. For a cycle of period `d`, the eigenvalues are the `d` roots of unity and the corresponding eigenvectors have phase support around that recurrent cycle.
+
+### Matched null model
+
+The null deliberately preserves the finite-state computational structure while removing conscious-agent semantics. It keeps:
+
+- the same 16 states;
+- the same four binary components;
+- the same ring dependency graph `g₂→x₁→g₁→x₂→g₂`;
+- one deterministic input and output per component;
+- one-bit capacity on every edge;
+- deterministic conditional entropy at zero noise.
+
+The null ensemble enumerates all 16 possible identity/NOT polarities on those four edges. This is a stringent comparison: if CAT's cycle structure is common in this matched family, periodicity or recurrence cannot by itself discriminate conscious-agent dynamics from an ordinary coupled Markov network.
+
+For this exact binary ring, the 16 matched nulls split into only two cycle-length fingerprints: eight produce `1-1-2-4-4-4`, and eight produce `8-8`. Thus each of the two published Hoffman examples has a cycle-length fingerprint shared by **50%** of this tightly matched null family. This is a computational result of the implemented finite model, not a claim about consciousness itself.
 
 ## Scientific boundary
 
-This application is a model-testing sandbox. It can test mathematical consequences of explicit assumptions, but by itself cannot establish that consciousness is ontologically fundamental, that physical reality is made of conscious agents, that simulated agents have phenomenal experience, or that spacetime emerges from conscious agents.
+This application is a model-testing sandbox. Reproducing the published Markov examples validates the implementation of those examples, not the ontological claim that their states are conscious. Likewise, integration, recurrence, synchronization, eigenmodes, or information measures are not by themselves evidence of phenomenal consciousness.
 
-A scientifically stronger test needs a distinctive quantitative prediction derived from CAT/ITP that differs from an appropriate physical or computational null model and can be compared with independently measured data.
+A stronger CAT test requires a distinctive quantitative prediction that is not inherited automatically from the underlying Markov architecture and that can ultimately be connected to independently measured physics, neuroscience, or behavior.
 
 ## Run locally
 
@@ -65,10 +85,10 @@ npm run build
 
 ## Next research milestones
 
-- construct the exact finite transition matrix for the two-agent join and calculate recurrent classes, absorbing sets, periods, stationary distributions, and eigenspectrum rather than inferring them only from trajectories;
-- reproduce the 2-state asymptotic examples reported by Hoffman & Prakash as regression tests;
-- implement explicit directed- and undirected-combination kernels from the published constructions;
-- compare each CAT network against matched generic coupled-Markov null models;
-- test whether any proposed CAT-specific statistic survives that null comparison;
-- evolve neural perceptual encoders across many changing ecologies;
+- implement the published directed- and undirected-combination kernels explicitly rather than only their coupled dynamics;
+- extend exact eigendecomposition to noisy stochastic kernels;
+- add graph/SCC visualization of the 16-state transition system;
+- test broader matched null families while controlling state count, topology, channel capacity and entropy;
+- identify candidate CAT-specific invariants and attempt to falsify them against those nulls;
+- connect asymptotic modes to the paper's space-time-chain/harmonic-function construction without assuming the physical interpretation;
 - pre-register hypotheses and acceptance criteria before large parameter sweeps.
