@@ -2,60 +2,48 @@
 
 Interactive research sandbox for turning claims from Donald Hoffman's **Interface Theory of Perception (ITP)** and **Conscious Agent Theory (CAT)** into explicit computational models.
 
-The project deliberately separates three questions:
+The project separates three experimental questions:
 
-1. **Fitness vs. truth:** when perception is a severe information bottleneck, does selection favor task-specific interfaces, world-structure-preserving representations, or hybrids?
-2. **Observer-relative interfaces:** can two observers use different perceptual channels over the same modeled world while remaining similarly adaptive?
-3. **Conscious Agent Theory:** what follows mathematically when an observer is modeled as a loop of Markov kernels for perception, decision, and action?
+1. **Fitness vs. truth:** does selection favor task-specific interfaces, world-structure-preserving representations, or hybrids?
+2. **Observer-relative interfaces:** can different perceptual channels over the same modeled world remain similarly adaptive?
+3. **Conscious realism / combination:** what dynamics appear when agents become part of one another's modeled world through directed or undirected joins?
 
-## Experiments
+## 1. Fitness vs Truth
 
-### 1. Fitness vs Truth
+Three perceptual encoders compete under the same source ecology: fitness-only, truth-preserving, and hybrid. After evolution the ecology changes, the perceptual encoder is frozen, and only the action readout adapts. The lab reports source reward, transfer reward, veridicality, and cross-seed variability.
 
-Three perceptual encoders compete under the same source ecology:
+## 2. Conscious Observer
 
-- **Fitness interface** — optimized only for current reward.
-- **Truth model** — optimized to retain latent structure of the modeled world.
-- **Hybrid model** — combines current reward with structural fidelity.
-
-After evolution, the ecology changes. The perceptual encoder is frozen while only a small action readout is allowed to adapt. This tests whether the representation retained reusable world structure.
-
-The experiment reports source reward, transfer reward, veridicality, and cross-seed variability.
-
-### 2. Conscious Observer
-
-This tab implements the mathematical skeleton used by Hoffman & Prakash for a conscious agent:
+Implements the Hoffman–Prakash conscious-agent skeleton:
 
 `W --P--> X --D--> G --A--> W'`
 
-where:
+`P`, `D`, and `A` are Markov kernels. Two observers can have different perceptual kernels over the same modeled world. The lab measures Jensen–Shannon divergence, adaptive reward difference, experience agreement, and information carried by the W→X channel.
 
-- `W` = world states
-- `X` = experience states
-- `G` = action states
-- `P(X|W)` = perceptual Markov kernel
-- `D(G|X)` = decision Markov kernel
-- `A(W'|G)` = action/world transition kernel
+## 3. Conscious Realism
 
-Two observers can have different perceptual kernels over the same modeled world. The lab measures:
+The network laboratory removes the single shared external-world picture and lets other modeled agents supply the signals driving an agent's perceptual channel. It supports 2–6 agents, ring/line/complete topologies, directed or undirected joins, channel noise, coupling strength, decision sharpness, and a compatibility mode approximating the join condition `A_i ≈ P_j`.
 
-- Jensen-Shannon divergence between observer interfaces
-- adaptive reward difference
-- experience-state agreement
-- a mutual-information proxy for the perception channel
+It measures:
 
-A useful pattern to look for is **high perceptual divergence with a low fitness gap**: distinct interfaces that support similarly successful behavior.
+- synchronization of experience states,
+- mean pairwise mutual information,
+- **total correlation** of the collective state as a non-factorizability measure,
+- one-step collective predictive information `I(S_t ; S_{t+1})`,
+- empirical recurrence and shortest observed recurrence distance,
+- visited versus possible joint experience states.
+
+The displayed normalized dependence score is **not IIT Φ** and is not presented as a consciousness measure. It quantifies statistical dependence only.
+
+### Relation to Hoffman & Prakash (2014)
+
+Their formalism allows conscious agents to be joined in directed and undirected graphs and gives constructive combination theorems. The present simulation explores consequences of coupled finite-state stochastic agents. A conventional Markov network can also synchronize, recur, and develop mutual information, so these outcomes alone do **not** discriminate conscious realism from ordinary stochastic dynamics.
 
 ## Scientific boundary
 
-This application is a **model-testing sandbox**, not evidence that a browser simulation is conscious. It can test mathematical and evolutionary consequences of particular assumptions. By itself it cannot establish that:
+This application is a model-testing sandbox. It can test mathematical consequences of explicit assumptions, but by itself cannot establish that consciousness is ontologically fundamental, that physical reality is made of conscious agents, that simulated agents have phenomenal experience, or that spacetime emerges from conscious agents.
 
-- consciousness is ontologically fundamental,
-- physical reality is made of conscious agents,
-- simulated agents have phenomenal experience,
-- spacetime emerges from conscious agents.
-
-Those stronger claims need distinctive predictions that connect CAT/ITP to independently measured physics, neuroscience, or behavior.
+A scientifically stronger test needs a distinctive quantitative prediction derived from CAT/ITP that differs from an appropriate physical or computational null model and can be compared with independently measured data.
 
 ## Run locally
 
@@ -77,10 +65,10 @@ npm run build
 
 ## Next research milestones
 
-- evolve neural rather than discrete perceptual encoders
-- sample hundreds of changing ecologies rather than a single transfer task
-- estimate mutual information against separable latent causes
-- add explicit representation complexity/energy costs
-- implement directed and undirected joins of conscious agents
-- compare predictions against alternative observer models
-- pre-register hypotheses and acceptance criteria before large sweeps
+- construct the exact finite transition matrix for the two-agent join and calculate recurrent classes, absorbing sets, periods, stationary distributions, and eigenspectrum rather than inferring them only from trajectories;
+- reproduce the 2-state asymptotic examples reported by Hoffman & Prakash as regression tests;
+- implement explicit directed- and undirected-combination kernels from the published constructions;
+- compare each CAT network against matched generic coupled-Markov null models;
+- test whether any proposed CAT-specific statistic survives that null comparison;
+- evolve neural perceptual encoders across many changing ecologies;
+- pre-register hypotheses and acceptance criteria before large parameter sweeps.
