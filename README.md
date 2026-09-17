@@ -1,69 +1,61 @@
 # Conscious Observers Lab
 
-Interactive research sandbox for turning claims from Donald Hoffman's **Interface Theory of Perception (ITP)** and **Conscious Agent Theory (CAT)** into explicit computational models.
+Interactive research sandbox for turning claims from Donald Hoffman's **Interface Theory of Perception (ITP)** and **Conscious Agent Theory (CAT)** into explicit computational models and matched-null tests.
 
-The project now separates four experimental questions:
+The app contains six laboratories:
 
-1. **Fitness vs. truth:** does selection favor task-specific interfaces, world-structure-preserving representations, or hybrids?
-2. **Observer-relative interfaces:** can different perceptual channels over the same modeled world remain similarly adaptive?
-3. **Conscious realism / combination:** what dynamics appear when agents become part of one another's modeled world through directed or undirected joins?
-4. **Exact Markov test:** can the published 16-state two-agent dynamics be reproduced exactly, and are its asymptotic signatures distinctive relative to a structurally matched non-semantic Markov null?
+1. **Fitness vs Truth** — evolve compressed perceptual encoders and test transfer after an ecological shift.
+2. **Conscious Observer** — compare observer-relative `P(X|W)` channels, reward and information.
+3. **Conscious Realism** — couple multiple finite agents and measure synchronization, dependence, predictive information and recurrence.
+4. **Exact Markov** — reproduce the published 16-state two-agent examples and compare their cycle structure with a tightly matched non-semantic Markov family.
+5. **CAT Falsification** — compare proposed CAT signatures against strict and broad finite-state null ensembles.
+6. **Physics Bridge** — construct spacetime-chain harmonic modes for CAT and controls side by side and ask whether plane-wave-like mathematics is actually CAT-specific.
 
-## 1. Fitness vs Truth
+Every tab ends with a **plain-language results panel in Spanish** that explains the current numerical result, highlights the most important measurements, and states what the experiment does *not* establish.
 
-Three perceptual encoders compete under the same source ecology: fitness-only, truth-preserving, and hybrid. After evolution the ecology changes, the perceptual encoder is frozen, and only the action readout adapts. The lab reports source reward, transfer reward, veridicality, and cross-seed variability.
+## Core conscious-agent formalism
 
-## 2. Conscious Observer
-
-Implements the Hoffman–Prakash conscious-agent skeleton:
+The observer laboratory uses the Hoffman–Prakash skeleton
 
 `W --P--> X --D--> G --A--> W'`
 
-`P`, `D`, and `A` are Markov kernels. Two observers can have different perceptual kernels over the same modeled world. The lab measures Jensen–Shannon divergence, adaptive reward difference, experience agreement, and information carried by the W→X channel.
+where `P`, `D`, and `A` are Markov kernels. The network laboratories study coupled finite-state versions of these objects without assuming that simulated states possess phenomenal consciousness.
 
-## 3. Conscious Realism
+## Exact Markov replication
 
-The network laboratory removes the single shared external-world picture and lets other modeled agents supply the signals driving an agent's perceptual channel. It supports 2–6 agents, ring/line/complete topologies, directed or undirected joins, channel noise, coupling strength, decision sharpness, and a compatibility mode approximating the join condition `A_i ≈ P_j`.
+For binary `X₁, G₁, X₂, G₂`, the published two-agent state space is
 
-It measures synchronization, pairwise mutual information, total correlation, collective predictive information, empirical recurrence, and visited versus possible collective states. The displayed normalized dependence score is **not IIT Φ** and is not presented as a consciousness measure.
-
-## 4. Exact Markov Dynamics
-
-This tab reconstructs the finite-state dynamics in Hoffman & Prakash (2014), section **Dynamics of two conscious agents**. For binary `X₁, G₁, X₂, G₂`, the state space is
-
-`E = X₁ × G₁ × X₂ × G₂`, so `|E| = 2⁴ = 16`.
+`E = X₁ × G₁ × X₂ × G₂`, with `|E| = 2⁴ = 16`.
 
 With identity kernels and the paper's compatibility wiring, the deterministic update is
 
 `x₁' ← g₂, g₁' ← x₁, x₂' ← g₁, g₂' ← x₂`.
 
-The regression suite verifies the exact cycles reported in the paper:
+The regression test verifies the exact published cycles: Example 1 has periods `1, 1, 2, 4, 4, 4`; changing `D₁` to the bit-flip matrix yields two period-8 cycles. Reproducing these dynamics validates this implementation, not the ontology of conscious realism.
 
-- Example 1: periods `1, 1, 2, 4, 4, 4`;
-- Example 2, after changing `D₁` to the bit-flip matrix: two period-8 cycles.
+### Matched null
 
-The lab constructs the full 16×16 transition matrix. An optional independent bit-noise parameter extends the published deterministic examples into stochastic robustness tests. It reports stationary state entropy, entropy rate, predictive information, recurrent classes, and the exact noiseless permutation eigenmodes. For a cycle of period `d`, the eigenvalues are the `d` roots of unity and the corresponding eigenvectors have phase support around that recurrent cycle.
+A strict null preserves the 16 states, four binary components, ring dependency `g₂→x₁→g₁→x₂→g₂`, deterministic one-bit edges and zero-noise conditional entropy while removing conscious-agent semantics. Enumerating all 16 identity/NOT edge polarities yields two fingerprints: eight systems produce `1-1-2-4-4-4` and eight produce `8-8`. Thus each published cycle-length fingerprint is shared by 50% of this tightly matched family.
 
-### Matched null model
+The CAT Falsification tab adds a broad permutation null and reports where CAT statistics fall relative to the null distribution. These are exploratory computational comparisons; small tail rates are candidate signals requiring stronger controls and preregistration, not confirmations of CAT.
 
-The null deliberately preserves the finite-state computational structure while removing conscious-agent semantics. It keeps:
+## Physics Bridge
 
-- the same 16 states;
-- the same four binary components;
-- the same ring dependency graph `g₂→x₁→g₁→x₂→g₂`;
-- one deterministic input and output per component;
-- one-bit capacity on every edge;
-- deterministic conditional entropy at zero noise.
+Hoffman & Prakash (2014) connect eigenfunctions of the agent Markov kernel to harmonic functions of an associated spacetime chain and note that these harmonic functions can take the same mathematical form as a free-particle wave function. The Physics Bridge applies the same construction to CAT and non-semantic controls.
 
-The null ensemble enumerates all 16 possible identity/NOT polarities on those four edges. This is a stringent comparison: if CAT's cycle structure is common in this matched family, periodicity or recurrence cannot by itself discriminate conscious-agent dynamics from an ordinary coupled Markov network.
+For a recurrent cycle of period `d`, the lab constructs Fourier modes
 
-For this exact binary ring, the 16 matched nulls split into only two cycle-length fingerprints: eight produce `1-1-2-4-4-4`, and eight produce `8-8`. Thus each of the two published Hoffman examples has a cycle-length fingerprint shared by **50%** of this tightly matched null family. This is a computational result of the implemented finite model, not a claim about consciousness itself.
+`f(δ) = exp(-i 2πkδ/d)`
+
+and the spacetime function
+
+`g(δ,n) = λ^(-n) f(δ)`.
+
+It then checks the harmonic identity numerically on both sides. If matched ordinary Markov chains generate the same exact harmonic structure, wave-like form alone is not a CAT-specific discriminator. A stronger bridge to physics would need an additional CAT-derived restriction that survives null comparison and predicts independent observations.
 
 ## Scientific boundary
 
-This application is a model-testing sandbox. Reproducing the published Markov examples validates the implementation of those examples, not the ontological claim that their states are conscious. Likewise, integration, recurrence, synchronization, eigenmodes, or information measures are not by themselves evidence of phenomenal consciousness.
-
-A stronger CAT test requires a distinctive quantitative prediction that is not inherited automatically from the underlying Markov architecture and that can ultimately be connected to independently measured physics, neuroscience, or behavior.
+This is a model-testing sandbox. Statistical integration, recurrence, synchronization, information measures, eigenmodes and harmonic resemblance are not by themselves evidence of phenomenal consciousness. The scientific target is a distinctive quantitative prediction that is not inherited automatically from generic Markov structure and can ultimately be tested against independent physics, neuroscience or behavioral data.
 
 ## Run locally
 
@@ -85,10 +77,9 @@ npm run build
 
 ## Next research milestones
 
-- implement the published directed- and undirected-combination kernels explicitly rather than only their coupled dynamics;
+- implement the published directed- and undirected-combination kernels explicitly;
 - extend exact eigendecomposition to noisy stochastic kernels;
-- add graph/SCC visualization of the 16-state transition system;
-- test broader matched null families while controlling state count, topology, channel capacity and entropy;
-- identify candidate CAT-specific invariants and attempt to falsify them against those nulls;
-- connect asymptotic modes to the paper's space-time-chain/harmonic-function construction without assuming the physical interpretation;
-- pre-register hypotheses and acceptance criteria before large parameter sweeps.
+- compare the Physics Bridge over large matched ensembles rather than one control at a time;
+- search for CAT-specific invariants while correcting for multiple comparisons;
+- connect candidate invariants to independently measurable physical or neuroscientific observables;
+- preregister hypotheses and acceptance criteria before large parameter sweeps.
