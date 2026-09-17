@@ -2,15 +2,16 @@
 
 Interactive research sandbox for turning claims from Donald Hoffman's **Interface Theory of Perception (ITP)** and **Conscious Agent Theory (CAT)** into explicit computational models and matched-null tests.
 
-The app contains seven laboratories:
+The app contains eight laboratories:
 
 1. **Fitness vs Truth** — evolve compressed perceptual encoders and test transfer after an ecological shift.
 2. **Conscious Observer** — compare observer-relative `P(X|W)` channels, reward and information.
 3. **Conscious Realism** — couple multiple finite agents and measure synchronization, dependence, predictive information and recurrence.
-4. **Exact Markov** — reproduce the published 16-state two-agent examples and compare their cycle structure with a tightly matched non-semantic Markov family.
-5. **CAT Falsification** — compare proposed CAT signatures against strict and broad finite-state null ensembles.
-6. **Physics Bridge** — construct spacetime-chain harmonic modes for CAT and controls side by side and ask whether plane-wave-like mathematics is CAT-specific.
-7. **Massive Null Search** — stress-test CAT fingerprints against up to 100,000 Monte Carlo controls and an exact combinatorial census over all `16! = 20,922,789,888,000` permutation systems.
+4. **Hoffman vs OPH** — compare a fitness-oriented interface, an Observer Patch Holography-inspired consensus process, and an artificial observer with memory/self-calibration. This is a conceptual comparison, not a reproduction of the full OPH formalism.
+5. **Exact Markov** — reproduce the published 16-state two-agent examples and compare their cycle structure with a tightly matched non-semantic Markov family.
+6. **CAT Falsification** — compare proposed CAT signatures against strict and broad finite-state null ensembles.
+7. **Physics Bridge** — construct spacetime-chain harmonic modes for CAT and controls side by side and ask whether plane-wave-like mathematics is CAT-specific.
+8. **Massive Null Search** — stress-test CAT fingerprints against up to 100,000 Monte Carlo controls and an exact combinatorial census over all `16! = 20,922,789,888,000` permutation systems.
 
 Every tab ends with a Spanish **plain-language result**. The first thing shown is a one-sentence interpretation; technical measurements are hidden under an optional “see the numbers” disclosure. Where useful, the panel adds an everyday analogy and a direct statement of what the experiment does and does not support.
 
@@ -21,6 +22,18 @@ The observer laboratory uses the Hoffman–Prakash skeleton
 `W --P--> X --D--> G --A--> W'`
 
 where `P`, `D`, and `A` are Markov kernels. The network laboratories study coupled finite-state versions of these objects without assuming that simulated states possess phenomenal consciousness.
+
+## Hoffman vs OPH experiment
+
+The new comparison deliberately separates five concepts that are often collapsed into one another:
+
+`observation → consensus → world model → self-model → consciousness ?`
+
+The Hoffman-like condition maps latent environmental states into a compressed fitness-oriented interface. The OPH-like condition gives observers only partial noisy patches and lets local disagreement-repair produce a public state. The neural-observer condition adds memory and an explicit estimate of the observer's own predictive reliability.
+
+The experiment reports latent-world alignment, inter-observer consensus, stability of the public state, interface utility, and self-model calibration. A stable public world can therefore emerge in the model without assigning phenomenal consciousness to the patches. Conversely, better self-calibration is treated as an additional functional capacity rather than evidence of subjective experience.
+
+This module is inspired by the architectural idea of observer patches in FloatingPragma's **Observer Patch Holography** project: https://github.com/FloatingPragma/observer-patch-holography. It does **not** implement OPH's complete axioms, Lean formalization, continuum limits, or physical claims.
 
 ## Exact Markov replication
 
@@ -65,7 +78,7 @@ The same fingerprints occur in **50%** of the much tighter architecture-matched 
 
 ## Scientific boundary
 
-This is a model-testing sandbox. Statistical integration, recurrence, synchronization, information measures, eigenmodes, rarity and harmonic resemblance are not by themselves evidence of phenomenal consciousness. The scientific target is a distinctive quantitative prediction that survives appropriately matched alternatives and can ultimately be tested against independent physics, neuroscience or behavioral data.
+This is a model-testing sandbox. Statistical integration, recurrence, synchronization, information measures, eigenmodes, rarity, harmonic resemblance, consensus, self-calibration and world-model stability are not by themselves evidence of phenomenal consciousness. The scientific target is a distinctive quantitative prediction that survives appropriately matched alternatives and can ultimately be tested against independent physics, neuroscience or behavioral data.
 
 ## Run locally
 
@@ -84,9 +97,12 @@ npm run build
 
 - Hoffman, D. D. & Prakash, C. (2014). **Objects of consciousness.** *Frontiers in Psychology, 5*, 577. https://doi.org/10.3389/fpsyg.2014.00577
 - Prentner, R. & Hoffman, D. D. (2024). **Interfacing consciousness.** *Frontiers in Psychology, 15*, 1429376. https://doi.org/10.3389/fpsyg.2024.1429376
+- FloatingPragma. **Observer Patch Holography.** https://github.com/FloatingPragma/observer-patch-holography
 
 ## Next research milestones
 
+- replace the OPH-like toy repair rule with a closer executable abstraction of explicit observer-patch axioms and compare both versions;
+- add matched controls that achieve consensus without self-models and self-models without consensus;
 - implement the published directed- and undirected-combination kernels explicitly;
 - extend exact eigendecomposition to noisy stochastic kernels;
 - search automatically for candidate CAT-specific invariants while correcting for multiple comparisons;

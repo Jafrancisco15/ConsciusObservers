@@ -6,6 +6,7 @@ import ExactMarkovLab from './ExactMarkovLab';
 import CATFalsificationLab from './CATFalsificationLab';
 import PhysicsBridgeLab from './PhysicsBridgeLab';
 import NullDiscoveryLab from './NullDiscoveryLab';
+import ObserverPatchLab from './ObserverPatchLab';
 
 export default function App() {
   const [tab, setTab] = useState('fitness');
@@ -21,6 +22,7 @@ export default function App() {
           <button className={tab==='fitness'?'active':''} onClick={()=>setTab('fitness')}><FlaskConical size={17}/> Fitness vs Truth</button>
           <button className={tab==='observer'?'active':''} onClick={()=>setTab('observer')}><Eye size={17}/> Conscious Observer</button>
           <button className={tab==='network'?'active':''} onClick={()=>setTab('network')}><Network size={17}/> Conscious Realism</button>
+          <button className={tab==='patches'?'active':''} onClick={()=>setTab('patches')}><Orbit size={17}/> Hoffman vs OPH</button>
           <button className={tab==='exact'?'active':''} onClick={()=>setTab('exact')}><Orbit size={17}/> Exact Markov</button>
           <button className={tab==='falsification'?'active':''} onClick={()=>setTab('falsification')}><ShieldQuestion size={17}/> CAT Falsification</button>
           <button className={tab==='physics'?'active':''} onClick={()=>setTab('physics')}><Waves size={17}/> Physics Bridge</button>
@@ -29,6 +31,7 @@ export default function App() {
         {tab==='fitness' && <FitnessTruthLab/>}
         {tab==='observer' && <ObserverLab/>}
         {tab==='network' && <ConsciousNetwork/>}
+        {tab==='patches' && <ObserverPatchLab/>}
         {tab==='exact' && <ExactMarkovLab/>}
         {tab==='falsification' && <CATFalsificationLab/>}
         {tab==='physics' && <PhysicsBridgeLab/>}
