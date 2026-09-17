@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Eye, FlaskConical, Network, Orbit, ShieldQuestion } from 'lucide-react';
+import { Eye, FlaskConical, Network, Orbit, ShieldQuestion, Waves } from 'lucide-react';
 import { FitnessTruthLab, ObserverLab } from './CoreLabs';
 import ConsciousNetwork from './ConsciousNetwork';
 import ExactMarkovLab from './ExactMarkovLab';
 import CATFalsificationLab from './CATFalsificationLab';
+import PhysicsBridgeLab from './PhysicsBridgeLab';
 
 export default function App() {
   const [tab, setTab] = useState('fitness');
@@ -30,6 +31,7 @@ export default function App() {
           <button className={tab==='network'?'active':''} onClick={()=>setTab('network')}><Network size={17}/> Conscious Realism</button>
           <button className={tab==='exact'?'active':''} onClick={()=>setTab('exact')}><Orbit size={17}/> Exact Markov</button>
           <button className={tab==='falsification'?'active':''} onClick={()=>setTab('falsification')}><ShieldQuestion size={17}/> CAT Falsification</button>
+          <button className={tab==='physics'?'active':''} onClick={()=>setTab('physics')}><Waves size={17}/> Physics Bridge</button>
         </nav>
 
         {tab==='fitness' && <FitnessTruthLab/>}
@@ -37,6 +39,7 @@ export default function App() {
         {tab==='network' && <ConsciousNetwork/>}
         {tab==='exact' && <ExactMarkovLab/>}
         {tab==='falsification' && <CATFalsificationLab/>}
+        {tab==='physics' && <PhysicsBridgeLab/>}
       </main>
 
       <footer><p>Research sandbox · Statistical integration, recurrence, synchronization or harmonic resemblance are not by themselves evidence of phenomenal consciousness.</p></footer>
