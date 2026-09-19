@@ -6,7 +6,7 @@ The app contains eight laboratories:
 
 1. **Fitness vs Truth** — evolve compressed perceptual encoders and test transfer after an ecological shift.
 2. **Conscious Observer** — compare observer-relative `P(X|W)` channels, reward and information.
-3. **Self-Observation** — translate “lower/higher consciousness” and Stoic assent into a second-order monitoring model with an equal-compute control.
+3. **Self-Observation** — translate “lower/higher consciousness” and Stoic assent into a second-order monitoring model with a tightly matched shuffled-monitor control.
 4. **Conscious Realism** — couple multiple finite agents and measure synchronization, dependence, predictive information and recurrence.
 5. **Exact Markov** — reproduce the published 16-state two-agent examples and compare their cycle structure with a tightly matched non-semantic Markov family.
 6. **CAT Falsification** — compare proposed CAT signatures against strict and broad finite-state null ensembles.
@@ -34,7 +34,7 @@ The computational skeleton is
 The model compares three agents on the same trials:
 
 - **Reactive** — acts from the first-order impression.
-- **Equal-compute control** — receives the same additional perspective samples as the reflective agent but cannot represent its own initial impulse/confidence and has no assent gate.
+- **Matched shuffled-monitor control** — receives the same extra perspectives, the same bias-reduction transform and the same distribution of assent-gate probabilities, but those probabilities are reassigned across trials so they no longer track that trial’s own likely error.
 - **Reflective** — uses a second-order estimate of whether its first impulse is likely to be wrong, then probabilistically pauses, withholds assent or revises the response.
 
 The main quantities are:
@@ -44,10 +44,10 @@ The main quantities are:
 - confidence calibration;
 - correction rate and overcorrection harm;
 - deliberation and response-reversal rates;
-- perspective gain: `accuracy(equal-compute) - accuracy(reactive)`;
-- introspection gain: `accuracy(reflective) - accuracy(equal-compute)`.
+- generic-regulation gain: `accuracy(matched control) - accuracy(reactive)`;
+- introspection-targeting gain: `accuracy(reflective) - accuracy(matched control)`.
 
-The last contrast is deliberately central: if the equal-compute control matches the reflective model, then apparent “higher consciousness” performance can be explained by additional computation rather than self-observation.
+The last contrast is deliberately central: because the matched control has the same information, bias-reduction mechanism and pause-probability distribution, any remaining advantage depends on whether regulation is targeted to the system’s own estimated error. If the matched control equals the reflective model, the self-observation hypothesis adds no explanatory power in this task.
 
 A **Reflective Regulation Index (RRI)** combines monitoring, correction, calibration, gate discrimination and perspective benefit for visualization. It is explicitly **not a consciousness score**.
 
