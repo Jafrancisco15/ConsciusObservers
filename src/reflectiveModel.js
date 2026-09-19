@@ -41,6 +41,15 @@ function brier(values, outcomes) {
   return mean(values.map((value, index) => (value - outcomes[index]) ** 2));
 }
 
+function shuffledIndices(length, random) {
+  const indices = Array.from({ length }, (_, index) => index);
+  for (let i = indices.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(random() * (i + 1));
+    [indices[i], indices[j]] = [indices[j], indices[i]];
+  }
+  return indices;
+}
+
 export function simulateReflectiveExperiment(input = {}) {
   const params = {
     threat: clamp(input.threat ?? 0.65),
@@ -74,11 +83,6 @@ export function simulateReflectiveExperiment(input = {}) {
       perspectiveSum += truth + normal(random) * params.noise;
     }
     const perspectiveEvidence = perspectiveSum / params.perspectiveBreadth;
-
-    // Equal-compute control: it gets the same extra samples, but no representation
-    // of its own initial impulse/confidence and no assent gate.
-    const matchedScore = perspectiveEvidence + emotionalBias;
-    const matched = binaryAction(matchedScore);
 
     // Second-order observer: estimates whether the first-order impulse is unreliable.
     const conflict = -impulse * perspectiveEvidence;
@@ -115,15 +119,37 @@ export function simulateReflectiveExperiment(input = {}) {
     rows.push({
       truth,
       impulse,
-      matched,
+      matched: impulse,
       reflective,
+      impulseScore,
+      perspectiveEvidence,
+      residualBias,
       impulseConfidence,
       reflectiveConfidence,
       predictedImpulseError,
       gateProbability,
       deliberated,
+      matchedDeliberated: false,
     });
   }
+
+  // Tight matched null:
+  // - same first-order evidence
+  // - same extra perspective samples
+  // - same bias-reduction transform
+  // - exactly the same distribution of gate probabilities
+  // The only destroyed relation is whether a gate probability belongs to its own trial.
+  // This asks whether targeted self-monitoring matters beyond generic extra regulation.
+  const permutation = shuffledIndices(rows.length, random);
+  rows.forEach((row, index) => {
+    const shuffledGateProbability = rows[permutation[index]].gateProbability;
+    const matchedDeliberated = random() < shuffledGateProbability;
+    row.matchedDeliberated = matchedDeliberated;
+    const matchedScore = matchedDeliberated
+      ? row.perspectiveEvidence + row.residualBias
+      : row.impulseScore;
+    row.matched = binaryAction(matchedScore);
+  });
 
   const reactiveAccuracy = accuracy(rows, 'impulse');
   const matchedAccuracy = accuracy(rows, 'matched');
@@ -160,9 +186,10 @@ export function simulateReflectiveExperiment(input = {}) {
   const gateRight = rightImpulseRows.length
     ? mean(rightImpulseRows.map((row) => row.gateProbability))
     : 0;
-  const gateDiscrimination = clamp(0.5 + (gateWrong - gateRight));
+  const gateDiscrimination = clamp(0.5 + 0.5 * (gateWrong - gateRight));
 
   const deliberationRate = mean(rows.map((row) => (row.deliberated ? 1 : 0)));
+  const matchedDeliberationRate = mean(rows.map((row) => (row.matchedDeliberated ? 1 : 0)));
   const reversalRate = mean(rows.map((row) => (row.reflective !== row.impulse ? 1 : 0)));
   const perspectiveGain = matchedAccuracy - reactiveAccuracy;
   const introspectionGain = reflectiveAccuracy - matchedAccuracy;
@@ -175,7 +202,7 @@ export function simulateReflectiveExperiment(input = {}) {
       0.25 * correctionNet +
       0.2 * reflectiveCalibration +
       0.15 * gateDiscrimination +
-      0.1 * clamp(0.5 + perspectiveGain * 2),
+      0.1 * clamp(0.5 + introspectionGain * 4),
   );
 
   // Two-state Markov analogy for state occupancy. These transitions are hypotheses,
@@ -208,6 +235,7 @@ export function simulateReflectiveExperiment(input = {}) {
       correctionRate,
       harmRate,
       deliberationRate,
+      matchedDeliberationRate,
       reversalRate,
       gateDiscrimination,
       perspectiveGain,
@@ -233,13 +261,13 @@ export function interpretReflectiveResult(metrics) {
   let summary;
   if (matchedDelta > 0.015) {
     summary =
-      'La autoobservación aporta una mejora funcional incluso frente a un control con el mismo presupuesto de cómputo.';
+      'La autoobservación dirigida aporta una mejora funcional incluso frente a un control con la misma regulación y el mismo presupuesto de cómputo.';
   } else if (matchedDelta < -0.015) {
     summary =
-      'En esta configuración, autoobservarse no mejora el rendimiento frente al control de igual cómputo y puede introducir costo de deliberación.';
+      'En esta configuración, dirigir la regulación mediante autoobservación no supera al control emparejado y puede introducir costo de deliberación.';
   } else {
     summary =
-      'La mayor parte de la mejora se explica por procesar más perspectivas, no por la autoobservación en sí.';
+      'El control emparejado explica casi toda la mejora: aquí no aparece una ventaja específica clara de autoobservar el propio error.';
   }
 
   return {
